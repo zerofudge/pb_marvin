@@ -1,0 +1,20 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+//noinspection GroovyUnusedAssignment
+targetCompatibility = '1.8'
+//noinspection GroovyUnusedAssignment
+mainClassName = 'com.profitbricks.slack.bot.Marvin'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.7',
+            'org.slf4j:slf4j-api:1.7.21',
+            'me.ramswaroop.jbot:jbot:3.0.2',
+            'org.springframework.boot:spring-boot-starter:1.4.2.RELEASE'
+
+    testCompile 'junit:junit:4.12'
+}
