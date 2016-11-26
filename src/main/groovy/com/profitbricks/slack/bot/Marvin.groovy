@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 class Marvin extends Bot implements GeneralTopics {
 
     @Override
-    String getSlackToken() { 'xoxb-42358107398-YPcgzkmzxuiUbAezDglH3oJM' }
+    String getSlackToken() { 'xoxb-42358107398-qMzIByY1nLumvGycSjtA4ZV6' }
 
     @Override
     Bot getSlackBot() { this }

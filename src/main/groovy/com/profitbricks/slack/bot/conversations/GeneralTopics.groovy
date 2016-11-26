@@ -24,11 +24,27 @@ trait GeneralTopics {
     }
 
     @SuppressWarnings("GroovyUnusedDeclaration")
-    @Controller(pattern = "(help)", next = "showTopics")
-    void setupMeeting(WebSocketSession session, Event event) {
+    @Controller(pattern = "(help)", next = "needHelp")
+    void startHelp(WebSocketSession session, Event event) {
         slackBot.with {
-            startConversation event, 'showTopics'
+            startConversation event, 'needHelp'
             reply session, event, new Message('Need help?')
+        }
+    }
+
+    @SuppressWarnings("GroovyUnusedDeclaration")
+    @Controller(next = 'showTopics')
+    void needHelp(WebSocketSession session, Event event) {
+        slackBot.with {
+            if (!isConversationOn(event)) return
+
+            if (event.text =~ /(?i)yes/) {
+                reply session, event, new Message('Topics coming up')
+                nextConversation event
+            } else {
+                reply session, event, new Message('F.ing askhole!')
+                stopConversation event
+            }
         }
     }
 
@@ -36,11 +52,9 @@ trait GeneralTopics {
     @Controller
     void showTopics(WebSocketSession session, Event event) {
         slackBot.with {
-            if (event.text =~ /(?i)yes/)
-                reply session, event, new Message('Topics coming up')
-            else
-                reply session, event, new Message('F.ing askhole!')
+            if (!isConversationOn(event)) return
 
+            reply session, event, new Message('this is the shizzle!!')
             stopConversation event
         }
     }
